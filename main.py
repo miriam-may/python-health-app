@@ -225,6 +225,8 @@ def console():
     else:
         print("Well, that's it from me for now. Cheery-bye!")
 
+#Run console version. Should work.
+console()
 
-#Run GUI version. (Having some difficulties with that right now)
-main()
+#Run GUI version. (Having some difficulties with that right now, so I'll just comment it out)
+#main()
