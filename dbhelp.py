@@ -100,6 +100,9 @@ def overall_rating(namelist):
         for i in ratinglist:
             for n in i:
                 list_of_ratings.append(n) 
+        #Get only 14 sessions worth of ratings, if the number of ratings sessions exceeds 14. This makes for more relevant, up-to-date ratings
+        if len(list_of_ratings) > 14:
+            list_of_ratings = list_of_ratings[-14:]  
         #Split the list of ratings into two halves              
         mean, meantwo = means(list_of_ratings)
 

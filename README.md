@@ -14,7 +14,7 @@ It uses SQLite 3 locally to store information.
 - Cascading delete for the ratings and notes so that when a user chooses to delete a symptom by its name, all its corresponding data is deleted
 - Check whether a symptom exists before adding (if so, only add to the child table) and deleting (if the symptom does not exist, inform the user and do not proceed)
 - Ouput a .txt file with a brief history that the user can show their doctor (this is still in the very early stages)
-- Calculate whether given symptoms are getting worse or not by comparing the averages of the first 50% of the symptom's ratings with the second 50%
+- Calculate whether given symptoms are getting worse or not by comparing the averages of the first 50% of the symptom's recent ratings with the second 50%
 
 
 ## Planned Improvements - short term
