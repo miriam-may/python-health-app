@@ -1,10 +1,11 @@
 # Health App in Python - start as console, end with a gui?
 
-I've created this little thing which is starting life as a console application.
+I've created this little thing which started life as a console application. I am trying to write it also as a GUI application with PyQt6.
 
 I tried writing this as a C# .NET WPF app, but writing for Windows can be a nightmare so I also thought I'd try it in Python for simplicity's sake. 
 
 It uses SQLite 3 locally to store information.
+
 
 ## Features
 
@@ -20,7 +21,8 @@ It uses SQLite 3 locally to store information.
 ## Planned Improvements - short term
 
 - Make the output .txt file easier to read and "prettier"
-- Rewrite as GUI instead of console app using PySimpleGUI for added user-friendliness
+- Rewrite as GUI instead of console app using PySimpleGUI for added user-friendliness   
+- <b>(Changed my mind - now using PyQt6, not PySimpleGui)</b>
 - Add extra error management for edge cases with SQL queries
 
 ## Planned Improvements - long term

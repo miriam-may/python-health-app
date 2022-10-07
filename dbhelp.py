@@ -72,16 +72,18 @@ def ret_names():
 def delete_record(name):
     sympdb = sqlite3.connect('symptom.db')
     sympcursor = sympdb.cursor()
+    result = ""
 
     #Make sure the symptom being deleted exists in the table
     checkname = sympcursor.execute('SELECT * FROM symptom WHERE SymptomName = :name', {'name': name}).fetchone()
     if checkname is None:
-        print('That symptom doesn\'t seem to exist')  
+        result = 'That symptom doesn\'t seem to exist'  
     else:
         sympcursor.execute('DELETE FROM symptom WHERE SymptomName = :name', {'name': name})
         sympdb.commit()
-        print('All done!')
+        result = 'All done!'
     sympdb.close()
+    return result
    
 #Logic to rate symptoms. Splits list into two halves. Used in overall_rating function
 def means(meanlist):

@@ -1,0 +1,18 @@
+QWidget {
+    background-color: #2c065e;
+    color: #fff;
+}
+
+Qlabel {
+    color: #fff;
+}
+
+QLineEdit {
+    background-color: #fff;
+    color: #222;
+}
+
+QTextEdit {
+    background-color: #fff;
+    color: #222;
+}
