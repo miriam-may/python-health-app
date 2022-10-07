@@ -16,3 +16,9 @@ QTextEdit {
     background-color: #fff;
     color: #222;
 }
+
+QPushButton {
+    background-color: #222;
+    color: #fff;
+    width: 40px;
+}

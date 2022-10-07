@@ -31,7 +31,7 @@ def main():
             name = QLineEdit()
             name.setPlaceholderText('Symptom name...')
             
-            enterating = QLabel('Enter a rating for this symptom from 1-10. 1 is worst, 10 is feeling great')
+            enterating = QLabel('Enter a rating for this symptom from 1-10. 10 is worst, 1 is feeling great')
             enterating.setFont(namefont)
             
             rating = QLineEdit()
@@ -42,10 +42,13 @@ def main():
             notefont.setPointSize(10)
             enternotes.setFont(notefont)
             
-            notestext = QTextEdit()
-            notes = notestext.toPlainText()
+            notes = QTextEdit()
+            
             def submitSymptoms():
-                dbhelp.insert_info(name.text(), int(rating.text()), notes)
+                dbhelp.insert_info(name.text(), int(rating.text()), notes.toPlainText())
+                name.clear()
+                rating.clear()
+                
             submit = QPushButton("Submit")
             submit.clicked.connect(submitSymptoms)
 
@@ -65,6 +68,7 @@ def main():
 
             def delsymptom():
                 deleteresult.setText(dbhelp.delete_record(nametodelete.text()))
+                nametodelete.clear()
 
             deletebutton = QPushButton("Delete")
             deletebutton.clicked.connect(delsymptom)
@@ -79,13 +83,38 @@ def main():
             display = QPushButton("Show all my symptoms")
             display.clicked.connect(show)
 
+            sepone = QLabel("_"*90)
+            septwo = QLabel("_"*90)
+
+            getratlabel = QLabel("If you have built up a history of ratings, I can give you a general idea of how you're travelling.\nEnter symptoms, and hit 'Add'. When you're done, hit 'Get ratings'")
+            ratlist = []
+            ratlistnames = QLineEdit()
+            def addtolist():
+                ratlist.append(ratlistnames.text())
+                ratlistnames.clear()
+
+            add = QPushButton("Add")
+            add.clicked.connect(addtolist)
+
+            def addall():
+               showratings.setText(str(dbhelp.overall_rating(ratlist)))
+
+            getratings = QPushButton("Get ratings")
+            getratings.clicked.connect(addall)
+
+            showratings = QLabel()
+            showfont = showratings.font()
+            showfont.bold()
+            showfont.setPointSize(10)
+            showratings.setFont(showfont)
+
             winlayout.addWidget(welcome, 0, 0)
             winlayout.addWidget(entername, 1, 0)
             winlayout.addWidget(name, 1, 1)
             winlayout.addWidget(enterating, 2, 0)
             winlayout.addWidget(rating, 2, 1)
             winlayout.addWidget(enternotes, 3, 0)
-            winlayout.addWidget(notestext, 3, 1)
+            winlayout.addWidget(notes, 3, 1)
             winlayout.addWidget(submit, 4, 1)
             winlayout.addWidget(outputone, 5, 0)
             winlayout.addWidget(display, 5, 1)
@@ -94,7 +123,13 @@ def main():
             winlayout.addWidget(nametodelete, 7, 1)
             winlayout.addWidget(deleteresult, 8, 1)
             winlayout.addWidget(deletebutton, 8, 0)
-            
+            winlayout.addWidget(sepone, 9, 0)
+            winlayout.addWidget(septwo, 10, 0)
+            winlayout.addWidget(getratlabel, 11, 0)
+            winlayout.addWidget(ratlistnames, 11, 1)
+            winlayout.addWidget(add, 11, 2)
+            winlayout.addWidget(getratings, 12, 0)
+            winlayout.addWidget(showratings, 12, 1)
             innerwin.setLayout(winlayout)
             self.setCentralWidget(innerwin)
 
@@ -226,8 +261,7 @@ def console():
     else:
         print("Well, that's it from me for now. Cheery-bye!")
 
-#Run console version. Should work.
+#Run console version.
 #console()
 
-#Run GUI version. (Having some difficulties with that right now, so I'll just comment it out for Repliters)
 main()
