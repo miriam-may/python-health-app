@@ -14,17 +14,23 @@ def main():
     class windowOne(QMainWindow):
         def __init__(self):
             super(windowOne, self).__init__()
+
+            #create window, add title and icon
             self.setWindowTitle('The ManageIt App!')
             self.setWindowIcon(QIcon("Icons/bug.png"))
+
+            #Create layout and layout widget
             innerwin = QWidget()
             winlayout = QGridLayout()
 
+            #Write explanatory information
             welcome = QLabel("Hi! The point of this little app is to give you some help managing your symptoms.\nYou can enter symptoms, how bad they are at the moment, and a little note on each one.\nIf you want, you can also create a .txt file to print out and show your doctor that has a brief history on it.\nFinally, you can get a hint as to whether your symptoms are worsening or not. You decide what to do with that information. ")
             welfont = welcome.font()
             welfont.setPointSize(12)
             welcome.setFont(welfont)
             welcome.setAlignment(Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignTop)
             
+            #Label and textbox for symptom name
             entername = QLabel('Please enter a symptom name.')
             namefont = entername.font()
             namefont.setPointSize(10)
@@ -33,12 +39,14 @@ def main():
             name = QLineEdit()
             name.setPlaceholderText('Symptom name...')
             
+            #Label and textbox for rating. Textbox only accepts entries of numbers with 2 digits
             enterating = QLabel('Enter a rating for this symptom from 1-10. 10 is worst, 1 is feeling great')
             enterating.setFont(namefont)
             
             rating = QLineEdit()
             rating.setInputMask('00')
 
+            #Label and textarea for notes
             enternotes = QLabel('Are there any notes you need to remember about this symptom from today/recently?')
             notefont = enternotes.font()
             notefont.setPointSize(10)
@@ -46,28 +54,32 @@ def main():
             
             notes = QTextEdit()
             
+            #Function and button to add symptom to database
             def submitSymptoms():
                 dbhelp.insert_info(name.text(), int(rating.text()), notes.toPlainText())
                 name.clear()
                 rating.clear()
-                
+              
             submit = QPushButton("Submit")
             submit.clicked.connect(submitSymptoms)
 
+            #Function and button to create output .txt file    
             def outputfile():
                 final = output.create_output()
                 f = open('output.txt', 'a')
                 f.write('\n')
                 f.write(final)
                 f.close()
-
+            
             outputone = QPushButton("Create .txt file")
             outputone.clicked.connect(outputfile)
 
+            #Label and textbox for deleting a symptom
             deletename = QLabel("If you need to delete a symptom, enter its name here.")
             nametodelete = QLineEdit()
             deleteresult = QLabel()
 
+            #Function and button to delete symptom
             def delsymptom():
                 deleteresult.setText(dbhelp.delete_record(nametodelete.text()))
                 nametodelete.clear()
@@ -75,9 +87,10 @@ def main():
             deletebutton = QPushButton("Delete")
             deletebutton.clicked.connect(delsymptom)
             
-
+            #Label that will display list of symptom names in database
             allnames = QLabel()
 
+            #function and button to display symptom names in database
             def show():
                 n = dbhelp.ret_names()
                 allnames.setText(str(n))
@@ -85,12 +98,16 @@ def main():
             display = QPushButton("Show all my symptoms")
             display.clicked.connect(show)
 
+            #Separators, to make the gui easier on the eye    
             sepone = QLabel("_"*90)
             septwo = QLabel("_"*90)
 
+            #Label, textbox for getting ratings
             getratlabel = QLabel("If you have built up a history of ratings, I can give you a general idea of how you're travelling.\nEnter symptoms, and hit 'Add'. When you're done, hit 'Get ratings'")
             ratlist = []
             ratlistnames = QLineEdit()
+
+            #Function and button to add rating to list
             def addtolist():
                 ratlist.append(ratlistnames.text())
                 ratlistnames.clear()
@@ -98,18 +115,21 @@ def main():
             add = QPushButton("Add")
             add.clicked.connect(addtolist)
 
+            #Function and button to get the ratings for symptoms in the list    
             def addall():
                showratings.setText(str(dbhelp.overall_rating(ratlist)))
 
             getratings = QPushButton("Get ratings")
             getratings.clicked.connect(addall)
 
+            #Text that will display the rating info
             showratings = QLabel()
             showfont = showratings.font()
             showfont.bold()
             showfont.setPointSize(10)
             showratings.setFont(showfont)
 
+            #Add all the bits to the layout
             winlayout.addWidget(welcome, 0, 0)
             winlayout.addWidget(entername, 1, 0)
             winlayout.addWidget(name, 1, 1)
@@ -133,11 +153,13 @@ def main():
             winlayout.addWidget(getratings, 12, 0)
             winlayout.addWidget(showratings, 12, 1)
             innerwin.setLayout(winlayout)
+
+            #Add the layout to the window
             self.setCentralWidget(innerwin)
 
             
 
-                  
+    #Create the window, add styles, display the window and initiate the program loop              
     ManageItApp = QApplication(sys.argv)
     winone = windowOne()
     with open("styles.css", "r") as file:
