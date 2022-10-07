@@ -3,6 +3,7 @@ import output
 import sys
 from PyQt6.QtCore import *
 from PyQt6.QtWidgets import QMainWindow, QApplication, QPushButton, QLabel, QLineEdit, QGridLayout, QWidget, QTextEdit
+from PyQt6.QtGui import QIcon
 
 #Check to see if the SQLite tables already exist - if not, create them. In dbhelp module.
 dbhelp.table_check()
@@ -14,6 +15,7 @@ def main():
         def __init__(self):
             super(windowOne, self).__init__()
             self.setWindowTitle('The ManageIt App!')
+            self.setWindowIcon(QIcon("Icons/bug.png"))
             innerwin = QWidget()
             winlayout = QGridLayout()
 

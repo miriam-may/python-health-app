@@ -6,6 +6,8 @@ I tried writing this as a C# .NET WPF app, but writing for Windows can be a nigh
 
 It uses SQLite 3 locally to store information.
 
+Some icons by Yusuke Kamiyamane. Licensed under a Creative Commons Attribution 3.0 License.
+
 
 ## Features
 
