@@ -1,5 +1,5 @@
 QWidget {
-    background-color: #2c065e;
+    background-color: #1a8b10;
     color: #fff;
 }
 
@@ -18,7 +18,7 @@ QTextEdit {
 }
 
 QPushButton {
-    background-color: #222;
-    color: #fff;
+    background-color: rgb(223, 209, 21);
+    color: rgb(0, 0, 0);
     width: 40px;
 }
